@@ -12,19 +12,19 @@ const postSchema = new mongoose.Schema({
    },
     status:{
             type: String,
-            required: [true, "Status is a required field"],
+            // required: [true, "Status is a required field"],
     },
     created: {
         type: String,
-        required: [true, "Created is a required field"],
+        // required: [true, "Created is a required field"],
     },
     updated:{
         type:String,
-        required: [true, "Updated is a required field"],
+        // required: [true, "Updated is a required field"],
     },
     userId:{
         type:String,
-        required: [true, "UserId is a required field"],
+        // required: [true, "UserId is a required field"],
     }
     
     

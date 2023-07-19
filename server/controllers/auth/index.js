@@ -2,6 +2,11 @@ const User = require('../../models/User');
 var bcrypt = require('bcryptjs');
 const {createToken} = require('../../helper');
 const { token } = require('morgan');
+const express = require('express');
+const app = express();
+const cors = require('cors');
+
+app.use(cors())
 
 const ACCESS_TOKEN="guasljbislgfdiublsdibgdsb"
 // const add = async (req,res) =>{
@@ -16,13 +21,13 @@ const ACCESS_TOKEN="guasljbislgfdiublsdibgdsb"
 //     }
 // }
 const login = async (req, resp) => {
-  let { email, password } = req.body;
+  let { email, password } = req.query;
   console.log(email, password)
   console.log(req.query)
 
-  if (!password && !email) {
-    return resp.send({ result: "Email or Password is required" });
-  }
+  // if (!password && !email) {
+  //   return resp.send({ result: "Email or Password is required" });
+  // }
 
   let user = await User.findOne({ email });
   console.log(user);
@@ -75,22 +80,35 @@ const signup = async (req, res) => {
   if (!password && !email && !name) {
     return res.send({ result: "Email or Password is required" });
   }
-  var salt = bcrypt.genSaltSync(10);
-  var hash = bcrypt.hashSync(password, salt);
+  var salt = await bcrypt.genSaltSync(10);
+  console.log(salt);
+  var hash = await bcrypt.hashSync(password, salt);
+  console.log(hash);
   let data = {
     name,
     email,
     password: hash,
     role
   }
+  // let data={
+  //   name,
+  //   email,
+  //   password,
+  //   role
+  // }
   console.log(data);
   try {
     let user = User(data);
     let result = await user.save();
-    res.status(200).send(result);
+    // if(email && password){
+      res.status(200).send(result);
+    // }
+    
   }
   catch (error) {
+    // if(email && password){
     res.status(400).send(error);
+    // }
   }
 }
 module.exports = {

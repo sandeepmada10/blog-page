@@ -12,6 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('combined'))
 app.use(cors());
 
+const port = 4006;
+
 // var bcrypt = require('bcryptjs');
 // var salt = bcrypt.genSaltSync(10);
 // var hash = bcrypt.hashSync('123456', salt);
@@ -49,4 +51,4 @@ app.use('/api/auth',authRoute);
 // app.use(router);
 // app.use(router1);
 
-app.listen(4006, () => console.log('Server Started'))
+app.listen(port, () => console.log(`Server started in ${port}`))
